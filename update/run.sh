@@ -10,4 +10,6 @@ docker exec shardeum-validator /bin/bash -c "operator-cli gui start && operator-
 echo "pm2 list";
 docker exec shardeum-validator /bin/bash -c "pm2 list";
 echo "get current version";
+sleep 10
+docker exec shardeum-validator operator-cli status | grep state
 docker exec shardeum-validator operator-cli status | grep activeVersion;
