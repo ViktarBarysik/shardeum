@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-read -p "During this early stage of Betanet the Shardeum team will be collecting some performance and debugging info from your node to help improve future versions of the software.
-This is only temporary and will be discontinued as we get closer to mainnet.
-Thanks for running a node and helping to make Shardeum better.
+#read -p "During this early stage of Betanet the Shardeum team will be collecting some performance and debugging info from your node to help improve future versions of the software.
+#This is only temporary and will be discontinued as we get closer to mainnet.
+#Thanks for running a node and helping to make Shardeum better.
 
-#By running this installer, you agree to allow the Shardeum team to collect this data. (Y/n)?: " WARNING_AGREE
+##By running this installer, you agree to allow the Shardeum team to collect this data. (Y/n)?: " WARNING_AGREE
 
 set -e
 USE_SUDO=0
@@ -27,7 +27,7 @@ then
 fi
 
 echo "If you are upgrading from a previous version, please specify the directory where it was installed."
-read -p "What base directory should the node use (default ~/shardeum): " input
+##read -p "What base directory should the node use (default ~/shardeum): " input
 
 # Set default value if input is empty
 input=~/shardeum
@@ -89,9 +89,9 @@ INTERNALIP_DEFAULT=auto
 SHMEXT_DEFAULT=9001
 SHMINT_DEFAULT=10001
 
-read -p "Do you want to run the web based Dashboard? (Y/n): " RUNDASHBOARD
+#read -p "Do you want to run the web based Dashboard? (Y/n): " RUNDASHBOARD
 RUNDASHBOARD=$(echo "$RUNDASHBOARD" | tr '[:upper:]' '[:lower:]')
-RUNDASHBOARD=${RUNDASHBOARD:-y}
+RUNDASHBOARD=y
 
 echo # New line after inputs.
 
@@ -228,8 +228,8 @@ while :; do
   else
     echo "Port out of range, try again"
   fi
-  read -p "Enter the second port (1025-65536) for p2p communication (default $SHMINT_DEFAULT): " SHMINT
-  SHMINT=${SHMINT:-$SHMINT_DEFAULT}
+#  read -p "Enter the second port (1025-65536) for p2p communication (default $SHMINT_DEFAULT): " SHMINT
+  SHMINT=$SHMINT_DEFAULT
   [[ $SHMINT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
   if ((SHMINT >= 1025 && SHMINT <= 65536)); then
     SHMINT=${SHMINT:-10001}
@@ -266,7 +266,7 @@ fi
 
 ## Ensure that the node user can write to the $NODEHOME directory inside of the container, to do so the directory must be owned by UID 1000
 set +e
-mkdir -p ${NODEHOME} 
+mkdir -p ${NODEHOME}
 
 # Get the owner UID of the directory
 OWNER_UID=$(stat -c '%u' "$NODEHOME")
@@ -296,7 +296,7 @@ set -e
 echo "Downloading the shardeum-validator image and starting the validator container"
 
 ## Pull the latest image and run the validator
-docker-safe pull ghcr.io/shardeum/shardeum-validator:latest 
+docker-safe pull ghcr.io/shardeum/shardeum-validator:latest
 docker-safe run \
     --name shardeum-validator \
     -p ${DASHPORT}:${DASHPORT} \
